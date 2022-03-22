@@ -10,7 +10,7 @@ import java.util.Random;
 public class Params {
 
   //the number of rooms in the museum, excluding the Foyer
-  public final static int ROOMS = 13;
+  public final static int ROOMS = 6;
 
   //the time interval at which Main checks threads are alive
   public final static int MAIN_INTERVAL = 5;

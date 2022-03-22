@@ -1,19 +1,34 @@
 package mopa;
 
+/**
+ * The physical building, complete with a foyer and some rooms.
+ *
+ * @author levim@student.unimelb.edu.au
+ *
+ */
+
 public class Building {
     private Foyer foyer;
     private Room[] rooms;
 
-    public Building(int numberOfRooms) {
+    public Building(int numberOfRooms) throws Exception{
         setupRoomsAndFoyer(numberOfRooms);
     }
 
-    private void setupRoomsAndFoyer(int numberOfRooms) {
+    /**
+     * Create the rooms, create the foyer, and link them all together.
+     * @param numberOfRooms: the number of rooms to put in the building
+     */
+    private void setupRoomsAndFoyer(int numberOfRooms) throws Exception {
         spawnRooms(numberOfRooms);
         initializeFoyer();
         linkRoomsAndFoyer();
     }
 
+    /**
+     * Creates the list of rooms.
+     * @param numberOfRooms: the number of rooms to create
+     */
     private void spawnRooms(int numberOfRooms) {
         rooms = new Room[numberOfRooms];
         for(int i = 0; i < numberOfRooms; i++) {
@@ -21,13 +36,20 @@ public class Building {
         }
     }
 
-    private void initializeFoyer() {
+    /**
+     * Creates the foyer and links it to the first and last rooms
+     */
+    private void initializeFoyer() throws IndexOutOfBoundsException{
         foyer = new Foyer(rooms[0], rooms[rooms.length-1]);
     }
 
-    private void linkRoomsAndFoyer() throws Error {
+    /**
+     * Links all the rooms to one another and links the foyer to the first and last rooms.
+     * @throws NullPointerException: if foyer is null do not attempt to link rooms
+     */
+    private void linkRoomsAndFoyer() throws Exception {
         if (foyer == null) {
-            throw new Error("Error: foyer must be initialised before linking rooms");
+            throw new NullPointerException("Error: foyer must be initialised before linking rooms");
         }
 
         // link the first room to the foyer

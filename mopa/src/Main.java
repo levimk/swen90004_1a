@@ -19,6 +19,7 @@ public class Main {
 	 */
 
 	public static void main(String [] args) {
+		// Only allow one museum to be created per simulation.
 		Museum museum = Museum.getInstance(Params.ROOMS);
 
 		// generate the producer, the consumer and the security guard

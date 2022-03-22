@@ -1,10 +1,19 @@
 package mopa;
 
+/**
+ * The guard that performs security checks and makes sure that there is only ever one group in the foyer at a time.
+ *
+ * @author levim@student.unimelb.edu.au
+ *
+ */
 
 public class SecurityGuard extends Thread {
     private Foyer foyer;
     private Location location;
 
+    /**
+     * The guard is either inside the foyer or outside in the arrival/departure area
+     */
     private enum Location {
         OUTSIDE,
         INSIDE,
@@ -20,19 +29,16 @@ public class SecurityGuard extends Thread {
     public void run() {
         while(!isInterrupted()) {
             try {
-                boolean escortedGroupInside, escortedGroupOutside;
                 if(iAmOutside()) {
+                    // Wait for a new group to arrive at the museum then before moving inside, either by
+                    // him/herself or whilst taking the new group through the security check to the foyer.
                     if(!foyer.hasArrivingGroup()) sleep(Params.MAX_SECURITY_INTERVAL);
-//                    escortedGroupInside = foyer.enterFrontEntrance();
-//                    System.out.println("escorted inside? " + escortedGroupInside);
-//                    sleep(Params.SECURITY_TIME);
                     sleep(Params.SECURITY_TIME);
                     moveInside(foyer.enterFrontEntrance());
                 } else {
+                    // Wait for an old group to enter the foyer to depart the museum before moving outside, either by
+                    // him/herself or whilst taking the old group through the security check to the departure area.
                     if(!foyer.hasGroup()) sleep(Params.MAX_SECURITY_INTERVAL);
-//                    escortedGroupOutside = foyer.exitFrontEntrance();
-//                    sleep(Params.SECURITY_TIME);
-//                    moveOutside(escortedGroupOutside);
                     sleep(Params.SECURITY_TIME);
                     moveOutside(foyer.exitFrontEntrance());
                 }
@@ -46,13 +52,21 @@ public class SecurityGuard extends Thread {
         return location.equals(Location.OUTSIDE);
     }
 
-    private void moveInside(boolean escortedGroup) {
+    /**
+     * Guard moves inside
+     * @param withGroup : print a message if and only if the guard moves inside without a group
+     */
+    private void moveInside(boolean withGroup) {
         location = Location.INSIDE;
-        if (!escortedGroup) System.out.println("security guard goes in");
+        if (!withGroup) System.out.println("security guard goes in");
     }
 
-    private void moveOutside(boolean escortedGroup) {
+    /**
+     * Guard moves outside
+     * @param withGroup : print a message if and only if the guard moves outside without a group
+     */
+    private void moveOutside(boolean withGroup) {
         location = Location.OUTSIDE;
-        if (!escortedGroup) System.out.println("security guard goes out");
+        if (!withGroup) System.out.println("security guard goes out");
     }
 }
