@@ -13,6 +13,10 @@ public class Room {
     protected Room previousRoom;
     protected volatile Group group;
 
+    /**
+     * Constructore for the room
+     * @param id : the ID of the room
+     */
     public Room(int id) {
         this.id = id;
     }
@@ -43,12 +47,25 @@ public class Room {
         return leavingGroup;
     }
 
+    /**
+     * Tell the caller if this room has a group
+     * @return : true if and only if the room has a group
+     */
     public synchronized boolean hasGroup() {
         return group != null;
     }
 
+    /**
+     * Getter for the next room in the tour
+     * @return Room: the next room
+     */
     public Room getNextRoom() { return nextRoom; }
 
+    /**
+     * Setter: connect this room to the previous room
+     * @param room : the previous room
+     * @throws Exception : prevent the previous room from being overridden
+     */
     public void setPreviousRoom(Room room) throws Exception {
         if (this.previousRoom == null) {
             this.previousRoom = room;
@@ -57,6 +74,11 @@ public class Room {
         }
     }
 
+    /**
+     * Setter: connect this room to the next room
+     * @param room : the next room
+     * @throws Exception : prevent the next room from being overridden
+     */
     public void setNextRoom(Room room) throws Exception {
         if (this.nextRoom == null) {
             this.nextRoom = room;
@@ -65,7 +87,15 @@ public class Room {
         }
     }
 
+    /**
+     * Getter for this room's ID
+     * @return int: the room's ID
+     */
     public int getId() { return id; }
 
+    /**
+     * String representation of the room
+     * @return string representing the room
+     */
     public String toString() { return "room " + id; }
 }

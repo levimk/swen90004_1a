@@ -45,14 +45,26 @@ public class Museum {
         }
     }
 
+    /**
+     * Getter for the foyer
+     * @return the building's foyer
+     */
     public Foyer getFoyer() {
         return building.getFoyer();
     }
 
+    /**
+     * Getter for the security guard
+     * @return the building's security guard
+     */
     public SecurityGuard getSecurityGuard() {
         return securityGuard;
     }
 
+    /**
+     * Getter for the guides
+     * @return the building's guides
+     */
     public Guide[] getGuides() {
         return guides;
     }

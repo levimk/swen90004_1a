@@ -19,6 +19,10 @@ public class SecurityGuard extends Thread {
         INSIDE,
     }
 
+    /**
+     * Constructore for the security guard
+     * @param foyer : the foyer the security guard is responsible for
+     */
     public SecurityGuard(Foyer foyer) {
         this.foyer = foyer;
         this.location = Location.OUTSIDE;
@@ -48,6 +52,10 @@ public class SecurityGuard extends Thread {
         }
     }
 
+    /**
+     * Check is the guard is outside.
+     * @return : true if and only if the guard is currently outside
+     */
     private boolean iAmOutside() {
         return location.equals(Location.OUTSIDE);
     }

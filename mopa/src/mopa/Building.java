@@ -11,6 +11,11 @@ public class Building {
     private Foyer foyer;
     private Room[] rooms;
 
+    /**
+     * Constructor for the building
+     * @param numberOfRooms : the number of rooms in the building (excluding the foyer)
+     * @throws Exception : various nested exception may bubble - prevents incorrect initialisation of rooms and foyer
+     */
     public Building(int numberOfRooms) throws Exception{
         setupRoomsAndFoyer(numberOfRooms);
     }
@@ -74,9 +79,19 @@ public class Building {
         rooms[rooms.length-1].setNextRoom(foyer);
     }
 
+    /**
+     * Getter for the foyer
+     * @return Foyer: the foyer
+     */
     public Foyer getFoyer() {
         return foyer;
     }
 
+    /**
+     * Getter for individual rooms
+     * @param i : index of the room to get
+     * @return : room at index i
+     * @throws IndexOutOfBoundsException : catch index out of bounds, e.g. if the number of rooms is set to 0
+     */
     public Room getRoom(int i) throws IndexOutOfBoundsException { return rooms[i]; }
 }

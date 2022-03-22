@@ -8,9 +8,9 @@ package mopa;
  */
 
 public class Guide extends Thread {
-    private String id;
-    private Room room;
-    private Room nextRoom;
+    private final String id;
+    private final Room room;
+    private final Room nextRoom;
     private Location location;
 
     /**
@@ -34,6 +34,9 @@ public class Guide extends Thread {
         nameThread();
     }
 
+    /**
+     * Name the thread
+     */
     private void nameThread() {
         String threadName = room.getClass().getName().equals("Foyer") ? "G-Foyer" : "G-" + id;
         Thread.currentThread().setName(threadName);
@@ -43,7 +46,7 @@ public class Guide extends Thread {
     public void run() {
         while(!isInterrupted()) {
             try {
-                // If the guide is in their own room and it has a group
+                // If the guide is in their own room, and it has a group
                 if (location.equals(Location.OWN_ROOM) && room.hasGroup()) {
                     // Escort the group to the next room
                     Group escortingGroup = room.leaveRoom();
@@ -60,7 +63,7 @@ public class Guide extends Thread {
 
     /**
      * Return the guide from the entrance of the next room to his/her own room.
-     * @throws InterruptedException
+     * @throws InterruptedException : safely interrupt the thread
      */
     private void returnToOwnRoom() throws InterruptedException {
         sleep(Params.WALKING_TIME);
@@ -70,13 +73,17 @@ public class Guide extends Thread {
     /**
      * Change the location of the guide
      * @param newLocation: the guide moves back and forth between his/her own room and the next room in the museum
-     * @throws Error
+     * @throws Error : cannot change location to the current location
      */
     private void changeLocation(Location newLocation) throws Error {
         if (location.equals(newLocation)) throw new Error("Guide error: attempting to change to current location (" + location + ")" );
         location = newLocation;
     }
 
+    /**
+     * String representation of the Guide
+     * @return String representation of the Guide
+     */
     @Override
     public String toString() {
         return "Guide #" + id + " (" + room + ", " + nextRoom + ")";
